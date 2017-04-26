@@ -132,6 +132,7 @@ declare namespace Oidc {
         removeUser(): Promise<void>;
 
         signinPopup(args?: any): Promise<User>;
+		signinCordova(args?: any): Promise<User>;
         signinPopupCallback(url?: string): Promise<any>;
 
         signinSilent(args?: any): Promise<User>;
@@ -181,6 +182,7 @@ declare namespace Oidc {
         redirectNavigator?: any;
         popupNavigator?: any;
         iframeNavigator?: any;
+		cordovaNavigator? :any;
         userStore?: any;
     }
 

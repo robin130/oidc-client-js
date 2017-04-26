@@ -5,6 +5,7 @@ import Log from './Log';
 import OidcClientSettings from './OidcClientSettings';
 import RedirectNavigator from './RedirectNavigator';
 import PopupNavigator from './PopupNavigator';
+import CordovaNavigator from './CordovaNavigator';
 import IFrameNavigator from './IFrameNavigator';
 import WebStorageStateStore from './WebStorageStateStore';
 import Global from './Global';
@@ -28,6 +29,7 @@ export default class UserManagerSettings extends OidcClientSettings {
         redirectNavigator = new RedirectNavigator(),
         popupNavigator = new PopupNavigator(),
         iframeNavigator = new IFrameNavigator(),
+		cordovaNavigator = new CordovaNavigator(),
         userStore = new WebStorageStateStore({ store: Global.sessionStorage })
     } = {}) {
         super(arguments[0]);
@@ -49,6 +51,7 @@ export default class UserManagerSettings extends OidcClientSettings {
         this._redirectNavigator = redirectNavigator;
         this._popupNavigator = popupNavigator;
         this._iframeNavigator = iframeNavigator;
+		this._cordovaNavigator = cordovaNavigator;
         
         this._userStore = userStore;
     }
@@ -97,6 +100,9 @@ export default class UserManagerSettings extends OidcClientSettings {
     }
     get iframeNavigator() {
         return this._iframeNavigator;
+    }
+	get cordovaNavigator() {
+        return this._cordovaNavigator;
     }
     
     get userStore() {

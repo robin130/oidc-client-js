@@ -46,6 +46,9 @@ export default class UserManager extends OidcClient {
     get _iframeNavigator() {
         return this.settings.iframeNavigator;
     }
+	get _cordovaNavigator() {
+        return this.settings.cordovaNavigator;
+    }
     get _userStore() {
         return this.settings.userStore;
     }
@@ -94,6 +97,35 @@ export default class UserManager extends OidcClient {
         args.display = "popup";
 
         return this._signin(args, this._popupNavigator, {
+            startUrl: url,
+            popupWindowFeatures: args.popupWindowFeatures || this.settings.popupWindowFeatures,
+            popupWindowTarget: args.popupWindowTarget || this.settings.popupWindowTarget
+        }).then(user => {
+            if (user) {
+                if (user.profile && user.profile.sub) {
+                    Log.info("signinPopup successful, signed in sub: ", user.profile.sub);
+                }
+                else {
+                    Log.info("signinPopup successful");
+                }
+            }
+
+            return user;
+        });
+    }
+	 signinCordova(args = {}) {
+        Log.debug("UserManager.signinCordova");
+
+        let url = args.redirect_uri || this.settings.popup_redirect_uri || this.settings.redirect_uri;
+        if (!url) {
+            Log.error("No popup_redirect_uri or redirect_uri configured");
+            return Promise.reject(new Error("No popup_redirect_uri or redirect_uri configured"));
+        }
+
+        args.redirect_uri = url;
+        args.display = "popup";
+
+        return this._signin(args, this._cordovaNavigator, {
             startUrl: url,
             popupWindowFeatures: args.popupWindowFeatures || this.settings.popupWindowFeatures,
             popupWindowTarget: args.popupWindowTarget || this.settings.popupWindowTarget
