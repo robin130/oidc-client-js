@@ -322,6 +322,29 @@ export default class UserManager extends OidcClient {
             Log.info("signoutPopup successful");
         });
     }
+	cordovaSignOut(args = {}) {
+        Log.debug("UserManager.cordovaSignOut");
+
+        let url = args.post_logout_redirect_uri || this.settings.popup_post_logout_redirect_uri || this.settings.post_logout_redirect_uri;
+        args.post_logout_redirect_uri = url;
+        args.display = "popup";
+        if (args.post_logout_redirect_uri){
+            // we're putting a dummy entry in here because we 
+            // need a unique id from the state for notification
+            // to the parent window, which is necessary if we
+            // plan to return back to the client after signout
+            // and so we can close the popup after signout
+            args.state = args.state || {};
+        }
+
+        return this._signout(args, this._cordovaNavigator, {
+            startUrl: url,
+            popupWindowFeatures: args.popupWindowFeatures || this.settings.popupWindowFeatures,
+            popupWindowTarget: args.popupWindowTarget || this.settings.popupWindowTarget
+        }).then(() => {
+            Log.info("signoutPopup successful");
+        });
+    }
     signoutPopupCallback(url, keepOpen) {
         if (typeof(keepOpen) === 'undefined' && typeof(url) === 'boolean') {
             url = null;

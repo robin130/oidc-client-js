@@ -145,6 +145,7 @@ declare namespace Oidc {
         signoutRedirectCallback(url?: string): Promise<any>;
 
         signoutPopup(args?: any): Promise<any>;
+		cordovaSignOut(args?: any): Promise<any>;
         signoutPopupCallback(url?: string, keepOpen?: boolean): Promise<void>;
         signoutPopupCallback(keepOpen?: boolean): Promise<void>;
 
