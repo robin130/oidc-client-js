@@ -5,7 +5,7 @@ import Log from './Log';
 import OidcClientSettings from './OidcClientSettings';
 import RedirectNavigator from './RedirectNavigator';
 import PopupNavigator from './PopupNavigator';
-import CordovaNavigator from './CordovaNavigator';
+import CordovaNavigator from './CordovaPopupNavigator';
 import IFrameNavigator from './IFrameNavigator';
 import WebStorageStateStore from './WebStorageStateStore';
 import Global from './Global';
